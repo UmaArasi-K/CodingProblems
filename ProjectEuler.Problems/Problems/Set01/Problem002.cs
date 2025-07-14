@@ -24,7 +24,7 @@ public class Problem002 : IProblem
 	#region Private
 	private static long ParseInput(params object[] args)
 	{
-		long lUpperLimit = 1000;
+		long lUpperLimit = 100;
 
 		if(args.Length <= 0) return lUpperLimit;
 
