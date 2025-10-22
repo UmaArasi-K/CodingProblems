@@ -40,26 +40,23 @@ namespace ProjectEuler.Problems
 		}
 		private static long Calculate(long first, long second)
 		{
+			long currentmax = 0;
 			do
 			{
 				long product = first * second;
 				second--;
 				if(IsPalindrome(product))
 				{
-					return product;
+					currentmax=Math.Max(currentmax,product);
 				}
-				if(second > first-100)
-				{
-					continue;
-				}
-				else
+				if(second*first<currentmax)
 				{
 					first--;
 					second = first;
 				}
 			}
 			while(first > 0 && second > 0);
-			return 0;
+			return currentmax;
 		}
 		private static bool IsPalindrome(long number)
 		{
