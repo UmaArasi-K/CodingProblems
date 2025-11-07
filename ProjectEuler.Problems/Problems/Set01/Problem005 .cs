@@ -1,7 +1,6 @@
 ﻿namespace ProjectEuler.Problems
 {
 	[ProblemId(5)]
-
 	public class Problem005 : IProblem
 	{
 		#region Publics
@@ -14,8 +13,7 @@
 		public object Solve(params object[] args)
 		{
 			List<long> values = ParseInput(args);
-			List<long> arrfactors = GetValues(values[0], values[1]);
-			return ResultOfMultiplication(arrfactors);
+			return GetResult(values[0], values[1]);
 		}
 		#endregion
 
@@ -28,7 +26,7 @@
 			if(args.Length <= 0) return [lowerLimit, upperLimit];
 			string strInput = args.Parse();
 			List<long> longInput = new List<long>();
-			foreach(var item in strInput.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+			foreach(string item in strInput.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
 			{
 				if(long.TryParse(item, out long val))
 				{
@@ -41,17 +39,28 @@
 			return [lowerLimit, upperLimit];
 		}
 
-		private List<long> GetValues(long lowerLimit, long upperlimit)
+		private long GetResult(long lowerLimit, long upperlimit)
+		{
+			if(lowerLimit == 1)
+			{
+				List<long> arrfactors = FactorMethod(lowerLimit, upperlimit);
+				return ResultOfMultiplication(arrfactors);
+			}
+
+			return LCM(lowerLimit, upperlimit);
+		}
+
+		private List<long> FactorMethod(long lowerLimit, long upperlimit)
 		{
 			List<long> result = [];
 			for(long i = lowerLimit; i <= upperlimit; i++)
 			{
-				var temp = i;
-				foreach(var divident in result)
+				long temp = i;
+				foreach(long divident in result)
 				{
 					if(temp % divident == 0)
 					{
-						temp=temp/divident;
+						temp = temp / divident;
 					}
 				}
 
@@ -63,17 +72,40 @@
 
 			return result;
 		}
+
 		private long ResultOfMultiplication(List<long> factors)
 		{
 			long result = 1;
-			foreach(var factor in factors)
+			foreach(long factor in factors)
 			{
 				result *= factor;
 			}
+
 			return result;
 		}
 
-		
+		private long LCM(long lowerLimit, long upperlimit)
+		{
+			long LCM = 1;
+			for(long i = lowerLimit; i <= upperlimit; i++)
+			{
+				LCM = (LCM * i) / GCD(LCM, i);
+			}
+
+			return LCM;
+		}
+
+		private long GCD(long a, long b)
+		{
+			while(b != 0)
+			{
+				long temp = b;
+				b = a % b;
+				a = temp;
+			}
+
+			return a;
+		}
 		#endregion
 	}
 }
