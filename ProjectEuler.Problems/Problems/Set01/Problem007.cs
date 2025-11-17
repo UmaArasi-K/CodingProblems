@@ -55,14 +55,15 @@
 
 		private bool IsPrime(long Element, List<long> Primes)
 		{
+			long limit = (long) Math.Sqrt(Element);
 			foreach(long num in Primes)
 			{
+				if(num > limit) break;
 				if(Element % num == 0)
 				{
 					return false;
 				}
 			}
-
 			return true;
 		}
 		#endregion

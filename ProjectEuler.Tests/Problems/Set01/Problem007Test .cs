@@ -7,7 +7,7 @@ public class Problem007Test
 {
 	#region Tests
 	[TestMethod]
-	public void Test_Solve_ReturnsCorrectSum_ForDefaultLimit()
+	public void Test_Solve_ReturnsCorrectPrime_ForDefaultValue()
 	{
 		//Arrange
 		Problem007 problem = new Problem007();
@@ -17,7 +17,7 @@ public class Problem007Test
 		Assert.AreEqual((long) 13, result);
 	}
 	[TestMethod]
-	public void Test_Solve_ReturnsCorrectSum_ForGivenLimit()
+	public void Test_Solve_ReturnsCorrectPrime_ForGivenValue()
 	{
 		//Arrange
 		Problem007 problem = new Problem007();
