@@ -42,13 +42,15 @@ namespace ProjectEuler.Problems
 			long Maximum = 0;
 			while(start+Input<=ListLength)
 			{
-				if(InitialList.Slice(start, Convert.ToInt32(Input)).Contains(0))
+				var subList = InitialList.GetRange(start, (int) Input);
+
+				if(subList.Contains(0))
 				{
-					start =start + InitialList.Slice(start, Convert.ToInt32(Input)).FindIndex(x => x == 0)+1;
+					start = start + subList.FindIndex(x => x == 0) + 1;
 					continue;
 				}
-				Maximum = Math.Max(Maximum, MultiplyList(InitialList.Slice(start, Convert.ToInt32(Input))));
 
+				Maximum = Math.Max(Maximum, MultiplyList(subList));
 				start++;
 			}
 			return Maximum;
